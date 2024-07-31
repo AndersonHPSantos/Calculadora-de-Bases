@@ -71,6 +71,15 @@ def Base2(base, valor):
 def linhas(tam = 50):
     return '-' * tam
 
+def simbolos(base):
+    subscritos = {
+    2: '\u2082',
+    8: '\u2088',
+    16: '\u2081\u2086',
+    10: '\u2081\u2080'
+    }
+    return subscritos.get(base, "Não suportado")
+
 def despedida():
     print("Obrigado por utilizar o programa!")
 # Menu
@@ -98,7 +107,7 @@ match op1:
             if(base != 2 and base!= 8 and base != 16):
                 print("Opção inválida")
             else:
-                print("({})10 = ({}){}" .format(valor, Dec2(valor, base), base))
+                print("({}){} = ({}){}" .format(valor, simbolos(10), Dec2(valor, base), simbolos(base)))
             # Chamada para repetição
             resp = input("Deseja continuar(S/N)?: ")
     case 2:
@@ -114,9 +123,13 @@ match op1:
             else:
                 if(base == 16):
                     valor = input("Digite o valor da base 16: ")
+                    valor = valor.upper()
                 else:
                     valor = int(input("Digite o valor de base {}: " .format(base)))
-                print("({}){} = ({})10" .format(valor, base, Base2(base, valor)))
+                if(base == 8 and 8<= valor <=9):
+                    raise ValueError("Não os valores 9 e 8 na base 8!")
+                else:
+                    print("({}){} = ({}){}" .format(valor, simbolos(base), Base2(base, valor), simbolos(10)))
             # Chamada para repetição
             resp = input("Deseja continuar(S/N)?: ")
     case _:
