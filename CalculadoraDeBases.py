@@ -1,3 +1,5 @@
+# CalculadoraDeBases
+# Função de conversão de decimal para demais bases
 def Dec2(dec, base):
     listaVal = []  # Vetor o qual será armazenado o resto da(s) divisão(ões).
     quociente = 0
@@ -37,10 +39,46 @@ def conv2hex(resto):
     }
     return conversao.get(resto, str(resto))
 
+def conv2hexII(digito):
+    conversao = {
+        'A': 10,
+        'B': 11,
+        'C': 12,
+        'D': 13,
+        'E': 14,
+        'F': 15
+    }
+    return conversao.get(digito, str(digito))
+
+# Função de Conversão de demais bases para decimal
+def Base2(base, valor):
+    conv = 0
+    vetor = []
+    for digito in str(valor).upper():
+        if '0' <= digito <= '9':
+            vetor.append(int(digito))
+        elif 'A' <= digito <= 'F':
+            vetor.append(conv2hexII(digito))
+        else:
+            raise ValueError("Digito inválido para a base {}" .format(base))
+
+    n = len(vetor)-1
+    for i in range(len(vetor)):
+        conv += vetor[i] * (base**n)
+        n -= 1
+    return(conv)
+
+def linhas(tam = 50):
+    return '-' * tam
+
 def despedida():
     print("Obrigado por utilizar o programa!")
 # Menu
-print("Bem-vindo")
+
+print(linhas())
+print("Bem-vindo".center(50))
+print(linhas())
+
 op1 = int(input("Qual o tipo de conversão deseja realizar?\n"
         "[1] Decimal para demais bases\n"
         "[2] Demais bases para decimal\n"
@@ -65,7 +103,22 @@ match op1:
             resp = input("Deseja continuar(S/N)?: ")
     case 2:
         # demais bases para decimal
-        print("Em breve")
+        resp = 'S'
+        while(resp.upper() == 'S'):
+            base = int(input("Qual será a base do número digitado?: \n"
+                "[2]  Binário\n"
+                "[8]  Octal\n"
+                "[16] Hexadecimal\n"))
+            if(base != 2 and base!= 8 and base != 16):
+                print("Opção inválida")
+            else:
+                if(base == 16):
+                    valor = input("Digite o valor da base 16: ")
+                else:
+                    valor = int(input("Digite o valor de base {}: " .format(base)))
+                print("({}){} = ({})10" .format(valor, base, Base2(base, valor)))
+            # Chamada para repetição
+            resp = input("Deseja continuar(S/N)?: ")
     case _:
         # Comando inválido
         print("Opção inválida!")
