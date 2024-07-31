@@ -71,6 +71,11 @@ def Base2(base, valor):
 def linhas(tam = 50):
     return '-' * tam
 
+def bloco(texto):
+    print(linhas())
+    print(texto.center(50))
+    print(linhas())
+
 def simbolos(base):
     subscritos = {
     2: '\u2082',
@@ -81,7 +86,7 @@ def simbolos(base):
     return subscritos.get(base, "Não suportado")
 
 def despedida():
-    print("Obrigado por utilizar o programa!")
+    bloco("Obrigado por utilizar o programa!")
 # Menu
 
 print(linhas())
@@ -92,6 +97,7 @@ op1 = int(input("Qual o tipo de conversão deseja realizar?\n"
         "[1] Decimal para demais bases\n"
         "[2] Demais bases para decimal\n"
         "[0] Sair\n"))
+
 match op1:
     case 0:
         despedida()
@@ -99,41 +105,54 @@ match op1:
         # Decimal para demais bases
         resp = 'S'
         while(resp.upper() == 'S'):
+            print(linhas())
             valor = int(input("Digite o número decimal: "))
+            print(linhas())
             base = int(input("Digite a base para conversão: \n"
             "[2]  Binário\n"
             "[8]  Octal\n" + 
             "[16] Hexadecimal\n"))
             if(base != 2 and base!= 8 and base != 16):
+                print(linhas())
                 print("Opção inválida")
             else:
+                print(linhas())
                 print("({}){} = ({}){}" .format(valor, simbolos(10), Dec2(valor, base), simbolos(base)))
             # Chamada para repetição
+            print(linhas())
             resp = input("Deseja continuar(S/N)?: ")
     case 2:
         # demais bases para decimal
         resp = 'S'
         while(resp.upper() == 'S'):
+            print(linhas())
             base = int(input("Qual será a base do número digitado?: \n"
                 "[2]  Binário\n"
                 "[8]  Octal\n"
                 "[16] Hexadecimal\n"))
             if(base != 2 and base!= 8 and base != 16):
+                print(linhas())
                 print("Opção inválida")
             else:
                 if(base == 16):
+                    print(linhas())
                     valor = input("Digite o valor da base 16: ")
                     valor = valor.upper()
                 else:
+                    print(linhas())
                     valor = int(input("Digite o valor de base {}: " .format(base)))
                 if(base == 8 and 8<= valor <=9):
+                    print(linhas())
                     raise ValueError("Não os valores 9 e 8 na base 8!")
                 else:
+                    print(linhas())
                     print("({}){} = ({}){}" .format(valor, simbolos(base), Base2(base, valor), simbolos(10)))
             # Chamada para repetição
+            print(linhas())
             resp = input("Deseja continuar(S/N)?: ")
     case _:
         # Comando inválido
+        print(linhas())
         print("Opção inválida!")
 # Despedidas
 if(op1 != 0):
